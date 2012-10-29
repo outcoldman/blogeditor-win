@@ -5,7 +5,9 @@
         // This function is called whenever a user navigates to this page. It
         // populates the page elements with the app's data.
         ready: function (element, options) {
-            // TODO: Initialize the page here.
+            document.getElementById("btnAddBlogPost").addEventListener("click", function() {
+                WinJS.Navigation.navigate("/pages/editor/editor.html");
+            }, false);
         }
     });
 })();
