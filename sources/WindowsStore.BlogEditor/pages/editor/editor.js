@@ -25,6 +25,11 @@
                 .addEventListener("click", function () {
                     that._doClickSwitch();
                 }, false);
+            
+            document.getElementsByClassName("win-backbutton")[0]
+                .addEventListener("click", function () {
+                    that._goOutThisPage();
+                }, false);
         },
 
         unload: function () {

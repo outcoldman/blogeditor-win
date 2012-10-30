@@ -15,6 +15,9 @@
     .editor .articleBody {
         -ms-grid-column: 2;
         -ms-grid-row: 2;
+        height: auto;
+        -ms-grid-row-align: top;
+        overflow: auto;
     }
 
     .editor .win-backbutton {

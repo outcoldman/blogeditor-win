@@ -5,7 +5,7 @@
     <title>editor</title>
 
     <!-- WinJS references -->
-    <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+    <link href="//Microsoft.WinJS.1.0/css/ui-light.css" rel="stylesheet" />
     <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
     <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
 
@@ -23,9 +23,9 @@
             <h1 contentEditable="true" class="win-type-ellipsis">Blog post title</h1>
         </header>
 
-        <article contentEditable="true" class="articleBody" id="textRichEditor"><p>Content goes here.</p></article>
+        <article id="textRichEditor"  class="articleBody" contentEditable="true" ><p>Content goes here.</p></article>
         
-        <textarea id="textHtmlEditor" class="articleBody" style="visibility: hidden; height: 100%" ></textarea>
+        <textarea id="textHtmlEditor" class="articleBody" style="visibility: hidden;" ></textarea>
     </div>
     
     <div id="appbar" data-win-control="WinJS.UI.AppBar">
