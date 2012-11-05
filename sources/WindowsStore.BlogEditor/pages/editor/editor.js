@@ -8,7 +8,8 @@
         _fHtmlEditor: false,
         _keyboardFix: null,
         _textHtmlEditor: null,
-        _textRichEditor : null,
+        _textRichEditor: null,
+        _articleTitle : null,
 
         ready: function (element, options) {
 
@@ -16,6 +17,7 @@
 
             this._textHtmlEditor = document.getElementById("textHtmlEditor");
             this._textRichEditor = document.getElementById("textRichEditor");
+            this._articleTitle = document.getElementById("articleTitle");
 
             document.getElementById("cmdPublish")
                 .addEventListener("click", function() {
@@ -46,8 +48,19 @@
         },
 
         _doClickPublish : function() {
-            // TODO: Publish 
-            this._clearContent();
+            var that = this;
+
+            var publisher = new OutcoldSolutions.BlogEditor.MetaWeblogPublisher();
+            var articleBody = null;
+            if (this._fHtmlEditor) {
+                articleBody = this._textHtmlEditor.value;
+            } else {
+                articleBody = this._textRichEditor.innerHTML;
+            }
+
+            publisher.publishAsync(this._articleTitle.innerHTML, articleBody).done(function (a) {
+                that._clearContent();
+            });
         },
         
         _doClickClear: function () {
@@ -75,11 +88,8 @@
         },
         
         _clearContent: function() {
-            var elTitle = document.getElementById("articleTitle");
-            elTitle.innerHTML = "Blog post title";
-            
-            var textRichEditor = document.getElementById("textRichEditor");
-            textRichEditor.innerHTML = "<p>Content goes here.</p>";
+            this._articleTitle.innerHTML = "Blog post title";
+            this._textRichEditor.innerHTML = "<p>Content goes here.</p>";
 
             this._fHtmlEditor = false;
             this._showRichEditor();
