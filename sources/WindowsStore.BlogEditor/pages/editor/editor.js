@@ -6,19 +6,25 @@
     WinJS.UI.Pages.define("/pages/editor/editor.html", {
         
         _fHtmlEditor: false,
+        _keyboardFix: null,
+        _textHtmlEditor: null,
+        _textRichEditor : null,
 
         ready: function (element, options) {
 
             var that = this;
 
-            document.getElementById("cmdSave")
+            this._textHtmlEditor = document.getElementById("textHtmlEditor");
+            this._textRichEditor = document.getElementById("textRichEditor");
+
+            document.getElementById("cmdPublish")
                 .addEventListener("click", function() {
-                    that._doClickSave();
+                    that._doClickPublish();
                 }, false);
             
-            document.getElementById("cmdDelete")
+            document.getElementById("cmdClear")
                 .addEventListener("click", function () {
-                    that._doClickDelete();
+                    that._doClickClear();
                 }, false);
             
             document.getElementById("cmdSwitchToHtml")
@@ -26,33 +32,30 @@
                     that._doClickSwitch();
                 }, false);
             
-            document.getElementsByClassName("win-backbutton")[0]
-                .addEventListener("click", function () {
-                    that._goOutThisPage();
+            // Special fix for case when Windows shows keyboard
+            this._keyboardFix = document.getElementById("keyboardFix");
+            var inputPane = Windows.UI.ViewManagement.InputPane.getForCurrentView();
+            inputPane.addEventListener("hiding", function (eventArgs) {
+                    eventArgs.ensuredFocusedElementInView = true;
+                    that._keyboardFix.style.height = eventArgs.occludedRect.height + "px";
+                }, false);
+            inputPane.addEventListener("showing", function (eventArgs) {
+                    eventArgs.ensuredFocusedElementInView = true;
+                    that._keyboardFix.style.height = eventArgs.occludedRect.height + "px";
                 }, false);
         },
 
-        unload: function () {
-            // TODO: Respond to navigations away from this page.
-        },
-
-        updateLayout: function (element, viewState, lastViewState) {
-            /// <param name="element" domElement="true" />
-
-            // TODO: Respond to changes in viewState.
+        _doClickPublish : function() {
+            // TODO: Publish 
+            this._clearContent();
         },
         
-        _doClickSave : function() {
-            // TODO: Save data
-            this._goOutThisPage();
-        },
-        
-        _doClickDelete: function () {
+        _doClickClear: function () {
             var that = this;
 
-            var msg = new Windows.UI.Popups.MessageDialog("Are you sure you want to delete current progress?");
+            var msg = new Windows.UI.Popups.MessageDialog("Are you sure you want to clear all text?");
             msg.commands.append(new Windows.UI.Popups.UICommand("Yes", function () {
-                that._goOutThisPage();
+                that._clearContent();
             }));
             msg.commands.append(new Windows.UI.Popups.UICommand("No"));
             msg.defaultCommandIndex = 0;
@@ -61,27 +64,34 @@
         },
         
         _doClickSwitch: function () {
-            var textHtmlEditor = document.getElementById("textHtmlEditor"); 
-            var textRichEditor = document.getElementById("textRichEditor");
-
             if (this._fHtmlEditor) {
-                textHtmlEditor.style.visibility = 'hidden';
-                textRichEditor.style.visibility = 'visible';
-                textRichEditor.innerHTML = window.toStaticHTML(textHtmlEditor.value);
+                this._textRichEditor.innerHTML = window.toStaticHTML(this._textHtmlEditor.value);
             } else {
-                textHtmlEditor.style.visibility = 'visible';
-                textRichEditor.style.visibility = 'hidden';
-                textHtmlEditor.value = textRichEditor.innerHTML;
+                
+                this._textHtmlEditor.value = this._textRichEditor.innerHTML;
             }
             this._fHtmlEditor = !this._fHtmlEditor;
         },
         
-        _goOutThisPage: function() {
-            if (WinJS.Navigation.canGoBack) {
-                WinJS.Navigation.back();
-            } else {
-                WinJS.Navigation.navigate("/pages/home/home.html");
-            }
+        _clearContent: function() {
+            var elTitle = document.getElementById("articleTitle");
+            elTitle.content = "Blog post title";
+            
+            var textRichEditor = document.getElementById("articleTitle");
+            textRichEditor.innerHTML = "<p>Content goes here.</p>";
+
+            this._fHtmlEditor = false;
+            this._showRichEditor();
+        },
+        
+        _showHtmlEditor : function() {
+            this._textHtmlEditor.style.visibility = 'visible';
+            this._textRichEditor.style.visibility = 'hidden';
+        },
+        
+        _showRichEditor : function() {
+            this._textHtmlEditor.style.visibility = 'hidden';
+            this._textRichEditor.style.visibility = 'visible';
         }
     });
 })();

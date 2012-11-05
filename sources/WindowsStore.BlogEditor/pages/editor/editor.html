@@ -16,23 +16,24 @@
 <body>
     <script type="text/javascript"></script>
     <div class="editor">
-        
-        <button class="win-backbutton" aria-label="Back" type="button"></button>
 
         <header class="articleTitle">
-            <h1 contentEditable="true" class="win-type-ellipsis">Blog post title</h1>
+            <h1 contentEditable="true" class="win-type-ellipsis" id="articleTitle">Blog post title</h1>
         </header>
 
         <article id="textRichEditor"  class="articleBody" contentEditable="true" ><p>Content goes here.</p></article>
         
         <textarea id="textHtmlEditor" class="articleBody" style="visibility: hidden;" ></textarea>
+        
+        <!-- Special fix for keyboard, so we should have just one scrollbar -->
+        <div id="keyboardFix"></div>
     </div>
     
     <div id="appbar" data-win-control="WinJS.UI.AppBar">
         <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'cmdSwitchToHtml', label:'Html', icon:'page2', type:'toggle'}" type="button"></button>
         <hr data-win-control="WinJS.UI.AppBarCommand" data-win-options="{type:'separator',section:'global'}" />
-        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'cmdSave', label:'Save', icon:'save'}" type="button"></button>
-        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'cmdDelete', label:'Delete', icon:'delete'}" type="button"></button>
+        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'cmdPublish', label:'Save', icon:'save'}" type="button"></button>
+        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'cmdClear', label:'Delete', icon:'delete'}" type="button"></button>
     </div>
 
 </body>

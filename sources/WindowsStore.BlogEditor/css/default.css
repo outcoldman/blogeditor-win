@@ -6,20 +6,3 @@
     height: 100%;
     width: 100%;
 }
-
-.main {
-    width: 100%;
-    height: 100%;
-}
-
-@media screen and (-ms-view-state: snapped) {
-    .main {
-        padding-left: 40px;
-    }
-}
-
-@media screen and (-ms-view-state: portrait) {
-   .main {
-        padding-left: 40px;
-    }
-}

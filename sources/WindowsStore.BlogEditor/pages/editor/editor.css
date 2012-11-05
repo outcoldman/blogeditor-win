@@ -1,6 +1,6 @@
 ﻿.editor {
     -ms-grid-columns: 120px 1fr 120px;
-    -ms-grid-rows: 128px 1fr 40px;
+    -ms-grid-rows: 128px 1fr 40px auto;
     display: -ms-grid;
     width: 100%;
     height: 100%;
@@ -20,31 +20,24 @@
         overflow: auto;
     }
 
-    .editor .win-backbutton {
-        -ms-grid-column: 1;
-        -ms-grid-row: 1;
-        margin-left: 39px;
-        margin-top: 59px;
+    .editor #textHtmlEditor {
+        border: none;
+        padding: 0;
+        margin-top: 14.66px;
+        font-weight: 300;
+    }
+
+    .editor #keyboardFix {
+        -ms-grid-column-span: 3;
+        -ms-grid-row: 4;
     }
 
 @media screen and (-ms-view-state: snapped) {
     .editor {
         -ms-grid-columns: 20px 1fr 20px;
-        -ms-grid-rows: 128px 1fr 20px;
+        -ms-grid-rows: 78px 1fr 20px;
         -ms-grid-column: 2;
     }
-
-        .editor .win-backbutton {
-            margin: 0;
-            margin-right: 10px;
-            margin-top: 76px;
-            -ms-grid-column: 2;
-        }
-
-        .editor .articleTitle {
-            margin-top: 68px;
-            margin-left: 109px;
-        }
 }
 
 @media screen and (-ms-view-state: fullscreen-portrait) {
@@ -52,14 +45,4 @@
         -ms-grid-columns: 100px 1fr 20px;
         -ms-grid-column: 2;
     }
-
-        .editor .win-backbutton {
-            -ms-grid-column: 1;
-            margin-left: 29px;
-        }
-
-        .editor .articleTitle {
-            
-        }
-    
 }

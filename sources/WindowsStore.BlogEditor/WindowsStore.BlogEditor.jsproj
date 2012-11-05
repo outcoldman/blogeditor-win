@@ -61,9 +61,6 @@
     <Content Include="pages\editor\editor.css" />
     <Content Include="pages\editor\editor.html" />
     <Content Include="pages\editor\editor.js" />
-    <Content Include="pages\home\home.css" />
-    <Content Include="pages\home\home.html" />
-    <Content Include="pages\home\home.js" />
     <Content Include="default.html" />
     <Content Include="js\default.js" />
     <Content Include="js\navigator.js" />
