@@ -64,20 +64,21 @@
         },
         
         _doClickSwitch: function () {
-            if (this._fHtmlEditor) {
-                this._textRichEditor.innerHTML = window.toStaticHTML(this._textHtmlEditor.value);
-            } else {
-                
-                this._textHtmlEditor.value = this._textRichEditor.innerHTML;
-            }
             this._fHtmlEditor = !this._fHtmlEditor;
+            if (this._fHtmlEditor) {
+                this._showHtmlEditor();
+                this._textHtmlEditor.value = this._textRichEditor.innerHTML;
+            } else {
+                this._showRichEditor();
+                this._textRichEditor.innerHTML = window.toStaticHTML(this._textHtmlEditor.value);
+            }
         },
         
         _clearContent: function() {
             var elTitle = document.getElementById("articleTitle");
-            elTitle.content = "Blog post title";
+            elTitle.innerHTML = "Blog post title";
             
-            var textRichEditor = document.getElementById("articleTitle");
+            var textRichEditor = document.getElementById("textRichEditor");
             textRichEditor.innerHTML = "<p>Content goes here.</p>";
 
             this._fHtmlEditor = false;
