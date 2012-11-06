@@ -103,9 +103,9 @@
     <None Include="Settings.StyleCop" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MetaWeblogPublisher.cs" />
+    <Compile Include="MetaWeblogSupport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XmlRpcDataContractSerializationHelper.cs" />
+    <Compile Include="UserBlog.cs" />
     <Compile Include="XmlRpcProtocol.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">

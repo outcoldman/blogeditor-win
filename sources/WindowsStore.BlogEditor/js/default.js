@@ -20,9 +20,13 @@
             }
 
             WinJS.Application.onsettings = function (e) {
-                e.detail.applicationcommands = { "defaults": { title: "Accounts", href: "/pages/settings/accounts.html" } };
+                e.detail.applicationcommands = {
+                    "accounts": { title: "Accounts", href: "/pages/settings/accounts.html" }
+                };
                 WinJS.UI.SettingsFlyout.populateSettings(e);
             };
+
+            WinJS.Utilities.startLog({ type: "info", tags: "winjs outcold" });
 
             if (app.sessionState.history) {
                 nav.history = app.sessionState.history;
