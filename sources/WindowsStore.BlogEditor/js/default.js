@@ -19,6 +19,11 @@
                 // Restore application state here.
             }
 
+            WinJS.Application.onsettings = function (e) {
+                e.detail.applicationcommands = { "defaults": { title: "Accounts", href: "/pages/settings/accounts.html" } };
+                WinJS.UI.SettingsFlyout.populateSettings(e);
+            };
+
             if (app.sessionState.history) {
                 nav.history = app.sessionState.history;
             }

@@ -64,6 +64,7 @@
     <Content Include="default.html" />
     <Content Include="js\default.js" />
     <Content Include="js\navigator.js" />
+    <Content Include="pages\settings\accounts.html" />
     <None Include="WindowsStore.BlogEditor_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
