@@ -58,6 +58,7 @@
     <Content Include="images\smalllogo.png" />
     <Content Include="images\splashscreen.png" />
     <Content Include="images\storelogo.png" />
+    <Content Include="js\metaweblog\metaweblog-registration.js" />
     <Content Include="pages\editor\editor.css" />
     <Content Include="pages\editor\editor.html" />
     <Content Include="pages\editor\editor.js" />

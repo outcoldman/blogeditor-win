@@ -1,6 +1,5 @@
 ﻿(function () {
     "use strict";
-    var metaWeblogSupport = OutcoldSolutions.BlogEditor.MetaWeblogSupport;
 
     var page = WinJS.UI.Pages.define("/pages/settings/accounts-add.html?accountType=MetaWeblogAPI", {
 
@@ -30,21 +29,13 @@
             var accountUserName = document.getElementById('account-username').value;
             var accountPassword = document.getElementById('account-password').value;
 
-            var requestBody = metaWeblogSupport.getUserBlogsRequestBody(accountUserName, accountPassword);
-
-            WinJS.xhr({
-                type: "post",
-                url: blogPostUrl,
-                headers: { "Content-Type": "text/xml; charset=UTF-8", "Content-Length": requestBody.length },
-                data: requestBody
-            }).done(function (result) {
-                WinJS.log && WinJS.log(result);
-                var userBlogsResponse = metaWeblogSupport.parseUserBlogsResponse(result.responseText);
-                var list = new WinJS.Binding.List(userBlogsResponse);
-                list.forEach(function(userBlog) {
-                    WinJS.log && WinJS.log("User blog: id - " + userBlog.blogId + ", url - " + userBlog.url + ", name - " + userBlog.blogName, "outcold", "info");
+            var service = new MetaWeblogRegistrationService(blogPostUrl, accountUserName, accountPassword);
+            service.load().done(function(result) {
+                var list = new WinJS.Binding.List(result);
+                list.forEach(function (userBlog) {
+                    WinJS.log && WinJS.log("User blog: id - " + userBlog.blogid + ", url - " + userBlog.url + ", name - " + userBlog.blogname, "outcold", "info");
                 });
-            }, function(error) {
+            }, function (error) {
                 WinJS.log && WinJS.log(error);
             });
         }
