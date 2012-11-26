@@ -1,43 +1,122 @@
-﻿(function () {
+﻿// --------------------------------------------------------------------------------------------------------------------
+// Outcold Solutions (http://outcoldman.com)
+// --------------------------------------------------------------------------------------------------------------------
+
+(function () {
     "use strict";
 
-    var page = WinJS.UI.Pages.define("/pages/settings/accounts-add.html?accountType=MetaWeblogAPI", {
+    var wizzardPages = {
+        Progress: 0,
+        AddAccount: 1,
+        ListBlogs: 2
+    };
+    
+    var currentPage = wizzardPages.AddAccount;
+    var loadPromise = null;
+    var blogInfoViewModels = new WinJS.Binding.List();
+
+    function showWizardPage(pageIndex) {
+        WinJS.Utilities.query('.win-settings-section').addClass('hidden');
+        WinJS.Utilities.query('#wizzard-page' + pageIndex).removeClass('hidden');
+        currentPage = pageIndex;
+    }
+
+    function onClickGoBack() {
+        WinJS.log && WinJS.log("accounts-add.html win-backbutton hanlder", "outcold", "info");
+        
+        if (currentPage != wizzardPages.AddAccount) {
+            if (loadPromise != null) {
+                loadPromise.cancel();
+                loadPromise = null;
+            }
+            
+            blogInfoViewModels.splice(0, blogInfoViewModels.length);
+            showWizardPage(wizzardPages.AddAccount);
+        } else {
+            WinJS.UI.SettingsFlyout.show();
+        }
+    }
+
+    function onClickVerifyAccount() {
+        WinJS.log && WinJS.log("accounts-add.html win-backbutton hanlder", "outcold", "info");
+
+        showWizardPage(wizzardPages.Progress);
+
+        var url = document.getElementById('account-url').value;
+        var userName = document.getElementById('account-username').value;
+        var password = document.getElementById('account-password').value;
+
+        var blogSettings = new OutcoldSolutions.BlogEditor.MetaWeblog.BlogSettings(userName, password, url);
+        var service = new OutcoldSolutions.BlogEditor.MetaWeblog.MetaWeblogRegistrationService(blogSettings);
+        loadPromise = service.load();
+        loadPromise.done(function (result) {
+            if (loadPromise != null) {
+                if (result.length > 0) {
+                    blogInfoViewModels.splice(0, blogInfoViewModels.length);
+
+                    for (var i = 0; i < result.length; i++) {
+                        WinJS.log && WinJS.log("User blog: id - " + result[i].id + ", url - " + result[i].url + ", name - " + result[i].name, "outcold", "info");
+                        blogInfoViewModels.push({ info: result[i], checked: 'checked', settings: blogSettings });
+                    }
+
+                    showWizardPage(wizzardPages.ListBlogs);
+                } else {
+                    // TODO: show no blogs
+                }
+                loadPromise = null;
+            }
+        }, function (error) {
+            if (loadPromise != null) {
+                WinJS.log && WinJS.log(error);
+                showWizardPage(wizzardPages.AddAccount);
+                loadPromise = null;
+                // TODO: show error
+            }
+        });
+    }
+
+    var page = WinJS.UI.Pages.define("/pages/settings/accounts-add.html?accountType=MetaWeblog", {
 
         ready: function (element, options) {
             WinJS.log && WinJS.log("accounts-add.html ready", "outcold", "info");
+            var listBlogInfos = document.getElementById('listBlogInfos');
 
-            var that = this;
-            
             WinJS.Utilities.query(".win-backbutton", element).listen("click", function() {
-                that._onClickGoBack();
+                onClickGoBack();
             }, false);
             
-            WinJS.Utilities.query("#btnVerifyAccount", element).listen("click", function () {
-                that._onClickVerifyAccount();
+            WinJS.Utilities.query("#btnVerify", element).listen("click", function () {
+                onClickVerifyAccount();
             }, false);
-        },
 
-        _onClickGoBack: function () {
-            WinJS.log && WinJS.log("accounts-add.html win-backbutton hanlder", "outcold", "info");
-            WinJS.UI.SettingsFlyout.show();
-        },
-        
-        _onClickVerifyAccount: function() {
-            WinJS.log && WinJS.log("accounts-add.html win-backbutton hanlder", "outcold", "info");
-
-            var blogPostUrl = document.getElementById('account-blog-post-url').value;
-            var accountUserName = document.getElementById('account-username').value;
-            var accountPassword = document.getElementById('account-password').value;
-
-            var service = new MetaWeblogRegistrationService(blogPostUrl, accountUserName, accountPassword);
-            service.load().done(function(result) {
-                var list = new WinJS.Binding.List(result);
-                list.forEach(function (userBlog) {
-                    WinJS.log && WinJS.log("User blog: id - " + userBlog.blogid + ", url - " + userBlog.url + ", name - " + userBlog.blogname, "outcold", "info");
+            WinJS.Utilities.query("#btnAddAccount", element).listen('click', function () {
+                blogInfoViewModels.forEach(function(vm) {
+                    if (vm.checked) {
+                        var blog = new OutcoldSolutions.BlogEditor.Blog(OutcoldSolutions.BlogEditor.BlogType.MetaWeblog, vm.settings, vm.info);
+                        OutcoldSolutions.BlogEditor.BlogEntriesService.current.addBlog(blog);
+                    }
                 });
-            }, function (error) {
-                WinJS.log && WinJS.log(error);
-            });
+                
+                WinJS.UI.SettingsFlyout.show();
+            }, false);
+           
+            listBlogInfos.winControl.itemDataSource = blogInfoViewModels.dataSource;
+            listBlogInfos.addEventListener('iteminvoked', function (eventInfo) {
+                WinJS.Utilities.query("input", eventInfo.target).forEach(function (i) {
+                    i.checked = !i.checked;
+                    blogInfoViewModels.getAt(eventInfo.detail.itemIndex).checked = i.checked;
+                });
+
+                var checkedOnce = false;
+                blogInfoViewModels.forEach(function(vm) {
+                    checkedOnce = checkedOnce || vm.checked;
+                });
+                
+                WinJS.Utilities.query("#btnAddAccount", element).forEach(function(btn) {
+                    btn.disabled = !checkedOnce;
+                });
+                
+            }, false);
         }
     });
 })();

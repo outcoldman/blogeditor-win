@@ -1,0 +1,36 @@
+﻿.hidden {
+    display: none;
+    visibility: collapse;
+}
+
+#wizzard-page0 progress {
+    vertical-align: middle;
+    text-align: center;
+}
+
+#listBlogInfos.win-listview {
+    height: 200px;
+}
+
+.blog-info-template {
+    -ms-grid-columns: 30px 1fr;
+    -ms-grid-rows: auto auto;
+    display: -ms-grid;
+    width: 550px;
+    height: 100%;
+}
+
+.blog-info-template input[type=checkbox] {
+    -ms-grid-column: 1;
+    -ms-grid-row: 1;
+}
+
+.blog-info-template .blog-name {
+    -ms-grid-column: 2;
+    -ms-grid-row: 1;
+}
+
+.blog-info-template .blog-url {
+    -ms-grid-column: 2;
+    -ms-grid-row: 2;
+}

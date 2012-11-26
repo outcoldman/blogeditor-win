@@ -1,4 +1,8 @@
-﻿// For an introduction to the Navigation template, see the following documentation:
+﻿// --------------------------------------------------------------------------------------------------------------------
+// Outcold Solutions (http://outcoldman.com)
+// --------------------------------------------------------------------------------------------------------------------
+
+// For an introduction to the Navigation template, see the following documentation:
 // http://go.microsoft.com/fwlink/?LinkId=232506
 (function () {
     "use strict";

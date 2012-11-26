@@ -3,8 +3,18 @@
     <head>
         <title>App settings flyout</title>
         <script src="accounts.js"></script>
+        <script src="../../js/core.js"></script>
+        <script src="../../js/blogEntry.js"></script>
+        <script src="../../js/metaweblog/model.js"></script>
     </head>
     <body>
+        <div id="blogTemplate" data-win-control="WinJS.Binding.Template">
+            <div>
+                <div data-win-bind="innerText: info.name"></div>
+                <div data-win-bind="innerText: info.url"></div>
+            </div>
+        </div>
+
         <div data-win-control="WinJS.UI.SettingsFlyout" data-win-options="{settingsCommandId:'accounts',width:'narrow'}">
             <!-- Use either 'win-ui-light' or 'win-ui-dark' depending on the contrast between the header title and background color -->
             <div class="win-ui-dark win-header">
@@ -13,13 +23,18 @@
                 <img src="/images/smalllogo.png" style="position: absolute; right: 40px;"/>
             </div>
             <div class="win-content">
-                
+                <div class="win-settings-section" id="divRegisteredBlogs">
+                    <h3>Registered accounts</h3>
+                    <div id="listBlogs" data-win-control="WinJS.UI.ListView" 
+                         data-win-options="{layout: {type: WinJS.UI.ListLayout}, itemTemplate: select('#blogTemplate')}"></div>
+                </div>
+
                 <div class="win-settings-section">
                     <h3>Add account</h3>
                     <p>Select blog provider from the list below.</p>
                     
                     <select id="selectAccountTypes">
-                        <option value="MetaWeblogAPI">MetaWeblog</option>
+                        <option value="MetaWeblog">MetaWeblog</option>
                     </select>
                     
                     <button type="button" id="btnAddAccount">Add</button>
