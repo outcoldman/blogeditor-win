@@ -13,8 +13,8 @@
         <div id="blogInfoTemplate" data-win-control="WinJS.Binding.Template">
             <div class="blog-info-template">
                 <input type="checkbox" data-win-bind="checked: checked" onclick="return false"/>
-                <div class="blog-name" data-win-bind="innerText: info.name"></div>
-                <div class="blog-url" data-win-bind="innerText: info.url"></div>
+                <div class="blog-name win-type-ellipsis" data-win-bind="innerText: info.name"></div>
+                <div class="blog-url win-type-ellipsis win-type-x-small" data-win-bind="innerText: info.url"></div>
             </div>
         </div>
         
@@ -27,7 +27,7 @@
             <div class="win-content">
                 
                 <div class="win-settings-section hidden" id="wizzard-page0">
-                    <progress class="win-ring"></progress>
+                    <progress class="win-ring win-large"></progress>
                 </div>
 
                 <div class="win-settings-section" id="wizzard-page1" >
