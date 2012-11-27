@@ -213,5 +213,12 @@
         <BooleanProperty Name="IgnoreInternals">True</BooleanProperty>
       </AnalyzerSettings>
     </Analyzer>
+    <Analyzer AnalyzerId="StyleCop.CSharp.NamingRules">
+      <AnalyzerSettings>
+        <CollectionProperty Name="Hungarian">
+          <Value>x</Value>
+        </CollectionProperty>
+      </AnalyzerSettings>
+    </Analyzer>
   </Analyzers>
 </StyleCopSettings>

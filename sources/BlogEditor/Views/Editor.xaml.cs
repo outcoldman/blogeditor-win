@@ -2,7 +2,7 @@
 // Outcold Solutions (http://outcoldman.com)
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OutcoldSolutions.BlogEditor
+namespace OutcoldSolutions.BlogEditor.Views
 {
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Navigation;
@@ -10,9 +10,9 @@ namespace OutcoldSolutions.BlogEditor
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainPage : Page
+    public sealed partial class Editor : Page
     {
-        public MainPage()
+        public Editor()
         {
             this.InitializeComponent();
         }

@@ -100,14 +100,26 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
+    <Compile Include="Diagnostics\ILogger.cs" />
+    <Compile Include="Diagnostics\ILogManager.cs" />
+    <Compile Include="Diagnostics\Logger.cs" />
+    <Compile Include="Diagnostics\LogManager.cs" />
+    <Compile Include="Model\BlogInfo.cs" />
+    <Compile Include="Model\BlogSettings.cs" />
+    <Compile Include="Model\MetaWeblog\IXmlRpcService.cs" />
+    <Compile Include="Model\MetaWeblog\MetaWeblogRegistrationService.cs" />
+    <Compile Include="Model\MetaWeblog\XmlRpcArray.cs" />
+    <Compile Include="Model\MetaWeblog\XmlRpcEntity.cs" />
+    <Compile Include="Model\MetaWeblog\XmlRpcEntityType.cs" />
+    <Compile Include="Model\MetaWeblog\XmlRpcResponse.cs" />
+    <Compile Include="Model\MetaWeblog\XmlRpcService.cs" />
+    <Compile Include="Model\MetaWeblog\XmlRpcStruct.cs" />
+    <Compile Include="Model\MetaWeblog\XmlRpcValue.cs" />
+    <Compile Include="Views\Editor.xaml.cs">
+      <DependentUpon>Editor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -116,6 +128,9 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="BlogEditor_TemporaryKey.pfx" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Logo.png" />
@@ -133,10 +148,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MainPage.xaml">
+    <Page Include="Views\Editor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="OutcoldSolutions.Framework">
+      <HintPath>..\packages\OutcoldSolutions.Framework.1.0.21019.17119\lib\portable-win+net45+sl40+wp71\OutcoldSolutions.Framework.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
