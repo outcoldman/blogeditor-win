@@ -56,7 +56,7 @@
 
                     for (var i = 0; i < result.length; i++) {
                         WinJS.log && WinJS.log("User blog: id - " + result[i].id + ", url - " + result[i].url + ", name - " + result[i].name, "outcold", "info");
-                        blogInfoViewModels.push({ info: result[i], checked: 'checked', settings: blogSettings });
+                        blogInfoViewModels.push({ info: result[i], settings: blogSettings });
                     }
 
                     showWizardPage(wizzardPages.ListBlogs);
@@ -102,20 +102,13 @@
            
             listBlogInfos.winControl.itemDataSource = blogInfoViewModels.dataSource;
             listBlogInfos.addEventListener('iteminvoked', function (eventInfo) {
-                WinJS.Utilities.query("input", eventInfo.target).forEach(function (i) {
-                    i.checked = !i.checked;
-                    blogInfoViewModels.getAt(eventInfo.detail.itemIndex).checked = i.checked;
+                eventInfo.detail.itemPromise.then(function (invokedItem) {
+                    listBlogInfos.winControl.selection.getItems().done(function(selectedItems) {
+                        WinJS.Utilities.query("#btnAddAccount", element).forEach(function (btn) {
+                            btn.disabled = selectedItems.length == 0;;
+                        });
+                    });
                 });
-
-                var checkedOnce = false;
-                blogInfoViewModels.forEach(function(vm) {
-                    checkedOnce = checkedOnce || vm.checked;
-                });
-                
-                WinJS.Utilities.query("#btnAddAccount", element).forEach(function(btn) {
-                    btn.disabled = !checkedOnce;
-                });
-                
             }, false);
         }
     });

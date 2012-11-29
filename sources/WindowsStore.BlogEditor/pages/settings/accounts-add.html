@@ -12,7 +12,6 @@
     <body>
         <div id="blogInfoTemplate" data-win-control="WinJS.Binding.Template">
             <div class="blog-info-template">
-                <input type="checkbox" data-win-bind="checked: checked" onclick="return false"/>
                 <div class="blog-name win-type-ellipsis" data-win-bind="innerText: info.name"></div>
                 <div class="blog-url win-type-ellipsis win-type-x-small" data-win-bind="innerText: info.url"></div>
             </div>
@@ -52,7 +51,7 @@
                     <p>Choose blogs which you want to add.</p>
                     
                     <div id="listBlogInfos" data-win-control="WinJS.UI.ListView" 
-                        data-win-options="{layout: {type: WinJS.UI.ListLayout}, itemTemplate: select('#blogInfoTemplate')}"></div>
+                        data-win-options="{layout: {type: WinJS.UI.ListLayout}, selectionMode: 'multi', tapBehavior: 'toggleSelect', itemTemplate: select('#blogInfoTemplate')}"></div>
                     
                     <button id="btnAddAccount" >Add</button>
                 </div>
