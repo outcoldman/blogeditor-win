@@ -9,7 +9,7 @@
 }
 
 #listBlogInfos.win-listview {
-    height: 200px;
+    width: 100%;
 }
 
 #listBlogInfos .win-selectionborder{
